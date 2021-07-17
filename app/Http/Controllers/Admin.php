@@ -92,7 +92,7 @@ class Admin extends Controller
                         "extime" => time()+(60*120),
                         "id_admin" => $adm->id_user
                     );
-                    $jwt = JWT::encode($data,$key);
+                    $jwt = JWT::encode($data,$key); //appkey digunakan untuk membuat token dari jwt
 
                     M_Admin::where('id_user', $adm->id_user)->update(
                         [
