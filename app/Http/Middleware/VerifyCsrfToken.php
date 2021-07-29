@@ -27,6 +27,14 @@ class VerifyCsrfToken extends Middleware
         '/tambahKonten',
         '/ubahKonten',
         '/hapusKonten',
-        '/listKonten'
+        '/listKonten',
+        // '/ubahPasswordAdmin',
+        '/registrasiPeserta',
+        '/loginPeserta',
+        '/listKontenPeserta',
+        '/listSoal',
+        '/jawab',
+        '/hitungSkor',
+        '/selesaiUjian'
     ];
 }

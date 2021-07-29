@@ -215,4 +215,51 @@ class Admin extends Controller
             ]); 
         }
     }
+
+    // public function ubahPasswordAdmin(Request $request){
+    //     $validator = Validator::make($request -> all(), [
+    //         'password' => 'required | unique:tbl_user,password,'.$request->id_user.',id_user',
+    //         'id_user' => 'required'
+    //     ]);
+    //     if($validator -> fails()){
+    //         return response () ->json([
+    //             'status' => 'gagal',
+    //             'message' => $validator -> messages()
+    //         ]); 
+    //     }
+
+    //     $token = $request -> token;
+    //     $tokenDb = M_Admin::where('token',$token)->count();
+    //     if($tokenDb > 0){
+    //         $key = env('APP_KEY');
+    //         $decoded = JWT::decode($token, $key, array('HS256'));
+    //         $decoded_array = (array) $decoded;
+            
+    //         if($decoded_array['extime'] > time()){
+    //             if(M_Admin::where('id_user', $request->id_user)->update([
+    //                 'password' => $request-> password
+    //             ])){
+    //                 return response () ->json([
+    //                     'status' => 'berhasil',
+    //                     'message' => 'data berhasil diubah'
+    //                 ]); 
+    //             }else{  
+    //                 return response () ->json([
+    //                     'status' => 'gagal',
+    //                     'message' => 'data gagal diubah'
+    //                 ]); 
+    //             }
+    //         }else{
+    //             return response () ->json([
+    //                 'status' => 'gagal',
+    //                 'message' => 'token kadaluarsa'
+    //             ]); 
+    //         }
+    //     }else{
+    //         return response () ->json([
+    //             'status' => 'gagal',
+    //             'message' => 'token tidak valid'
+    //         ]); 
+    //     }
+    // }
 }

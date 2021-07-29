@@ -15,6 +15,7 @@ use Illuminate\Contracts\Encryption\DecrypException;
 
 use App\M_Admin;
 use App\M_Materi;
+use App\M_Peserta;
 
 class Konten extends Controller
 {
@@ -192,6 +193,58 @@ class Konten extends Controller
                 $data = array();
                 foreach($konten as $kntn){
                     $data[] = array(
+                        'id_konten' => $kntn->id_konten,
+                        'judul' => $kntn->judul,
+                        'keterangan' => $kntn->keterangan,
+                        'link_thumbnail' => $kntn->link_thumbnail,
+                        'link_video' => $kntn->link_video,
+                    );
+                }
+                return response () ->json([
+                    'status' => 'berhasil',
+                    'message' => 'data berhasil diambil',
+                    'data' => $data
+                ]); 
+
+            }else{
+                return response () ->json([
+                    'status' => 'gagal',
+                    'message' => 'token kadaluarsa'
+                ]); 
+                
+            }
+        }else{
+            return response () ->json([
+                'status' => 'gagal',
+                'message' => 'token tidak valid'
+            ]); 
+        }
+    }
+
+    public function listKontenPeserta(Request $request){
+        $validator = Validator::make($request -> all(), [
+            'token' => 'required'
+        ]);
+        if($validator -> fails()){
+            return response () ->json([
+                'status' => 'gagal',
+                'message' => $validator -> messages()
+            ]); 
+        }
+
+        $token = $request -> token;
+        $tokenDb = M_Peserta::where('token',$token)->count();
+        if($tokenDb > 0){
+            $key = env('APP_KEY');
+            $decoded = JWT::decode($token, $key, array('HS256'));
+            $decoded_array = (array) $decoded;
+            
+            if($decoded_array['extime'] > time()){
+                $konten = M_Materi::get();
+                $data = array();
+                foreach($konten as $kntn){
+                    $data[] = array(
+                        'id_konten' => $kntn->id_konten,
                         'judul' => $kntn->judul,
                         'keterangan' => $kntn->keterangan,
                         'link_thumbnail' => $kntn->link_thumbnail,
